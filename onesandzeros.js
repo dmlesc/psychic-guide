@@ -13,7 +13,7 @@ var supremeMath = [
   'Born'
 ];
 
-var limit = 11111;
+var limit = 1111111111;
 var teachings = [];
 var initiate = true;
 var steps = -1;
