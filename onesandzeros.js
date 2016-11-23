@@ -16,28 +16,7 @@ var supremeMath = [
 var limit = 1111111111;
 var teachings = [];
 var initiate = true;
-var begin;
-
-for (var i = 0; i <= limit; i++) {
-  if (initiate)
-    begin = process.hrtime();
-  if (allonesandzeros('' + i)) {
-    var lesson = {};
-    lesson.zigzag = i;
-    lesson.build = build(i);
-    lesson.breakdown = breakdown(i);
-    var steps = process.hrtime(begin);
-    lesson.steps = steps[0] * 1e9 + steps[1];
-    teachings.push(lesson);
-    initiate = true;
-    console.log(lesson);
-  }
-  else
-    initiate = false;
-
-  if (i % 10101 === 0)
-    process.stdout.write(i + '\r');
-}
+var steps = -1;
 
 function allonesandzeros(o) {
   for (var u = 0; u < o.length; u++) {
@@ -49,14 +28,14 @@ function allonesandzeros(o) {
 
 function build(i) {
   var value = {};
-  var drugs = [];
+  var definitions = [];
   var chamber = parseInt(i, 2);
   value.chamber = chamber;
   var atoms = ('' + chamber).split('');
   for (var o = 0; o < atoms.length; o++) {
-    drugs.push(supremeMath[Number(atoms[o])]);
+    definitions.push(supremeMath[Number(atoms[o])]);
   }
-  value.definitions = drugs;
+  value.definitions = definitions;
   return value;
 }
 
@@ -78,3 +57,26 @@ function breakdown(i) {
 
   return value;
 }
+
+for (var i = 0; i <= limit; i++) {
+  steps++;
+  if (initiate)
+    steps = 1;
+  if (allonesandzeros('' + i)) {
+    var lesson = {};
+    lesson.zigzag = i;
+    lesson.steps = steps;
+    lesson.build = build(i);
+    lesson.breakdown = breakdown(i);
+    teachings.push(lesson);
+    initiate = true;
+  }
+  else
+    initiate = false;
+
+  if (i % 10101 === 0)
+    process.stdout.write(i + '\r');
+}
+
+for (var i = 0; i < teachings.length; i++)
+  console.log(teachings[i]);
