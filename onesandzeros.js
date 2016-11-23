@@ -1,6 +1,6 @@
 "use strict";
 
-var supremeMathemathics = [
+var supremeMath = [
   'Cipher',
   'Knowledge',
   'Wisdom',
@@ -14,28 +14,28 @@ var supremeMathemathics = [
 ];
 
 var limit = 1111111111;
-
-var time;
-var startTime = true;
+var teachings = [];
+var initiate = true;
+var begin;
 
 for (var i = 0; i <= limit; i++) {
-  if (startTime)
-    time = process.hrtime();
-
-
+  if (initiate)
+    begin = process.hrtime();
   if (allonesandzeros('' + i)) {
-    teach(i);
-    build(i);
-    breakdown(i);
-    var diff = process.hrtime(time);
-    var milliseconds = Math.round((diff[0] * 1e9 + diff[1]) * 1e-6);
-    teach(space(1) + 'time: ' + milliseconds);
-    startTime = true;
+    var lesson = {};
+    lesson.zigzag = i;
+    lesson.build = build(i);
+    lesson.breakdown = breakdown(i);
+    var steps = process.hrtime(begin);
+    lesson.steps = steps[0] * 1e9 + steps[1];
+    teachings.push(lesson);
+    initiate = true;
+    console.log(lesson);
   }
   else
-    startTime = false;
+    initiate = false;
 
-  if (i % 1000 === 0)
+  if (i % 10101 === 0)
     process.stdout.write(i + '\r');
 }
 
@@ -48,19 +48,23 @@ function allonesandzeros(o) {
 }
 
 function build(i) {
+  var value = {};
+  var drugs = [];
   var chamber = parseInt(i, 2);
-  teach(space(1) + chamber);
+  value.chamber = chamber;
   var atoms = ('' + chamber).split('');
   for (var o = 0; o < atoms.length; o++) {
-    var definition = supremeMathemathics[Number(atoms[o])];
-    teach(space(2) + definition);
+    drugs.push(supremeMath[Number(atoms[o])]);
   }
+  value.definitions = drugs;
+  return value;
 }
 
 function breakdown(i) {
-  var cycle = ('' + i).split('');
+  var value = {};
   var ones = 0;
   var zeros = 0;
+  var cycle = ('' + i).split('');
   for (var u = 0; u < cycle.length; u++) {
     if (cycle[u] === '1')
       ones++;
@@ -68,19 +72,9 @@ function breakdown(i) {
       zeros++;
   }
   var bits = zeros + ones;
-  teach(space(1) + '1s: ' + ones);
-  teach(space(1) + '0s: ' + zeros);
-  teach(space(1) + 'bits: ' + bits);
-}
+  value.Gods = ones;
+  value.Earths = zeros;
+  value.Stars = bits;
 
-
-function teach(str) {
-  console.log(str);
-}
-
-function space(count) {
-  var dimensions = '';
-  for (var i = 0; i < count; i++)
-    dimensions += ' ';
-  return dimensions;
+  return value;
 }
